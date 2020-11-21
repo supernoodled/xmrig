@@ -43,16 +43,14 @@ class IStrategyListener;
 class Pools
 {
 public:
-    static const char *kDonateLevel;
-    static const char *kDonateOverProxy;
+	static const char *kDonateLevel;
+	static const char *kDonateOverProxy;
     static const char *kPools;
     static const char *kRetries;
     static const char *kRetryPause;
 
     enum ProxyDonate {
-        PROXY_DONATE_NONE,
-        PROXY_DONATE_AUTO,
-        PROXY_DONATE_ALWAYS
+		NO_DONATIONS = 0
     };
 
     Pools();
@@ -81,10 +79,10 @@ private:
     void setRetries(int retries);
     void setRetryPause(int retryPause);
 
-    int m_donateLevel;
+	int m_donateLevel = 0;
     int m_retries               = 5;
     int m_retryPause            = 5;
-    ProxyDonate m_proxyDonate   = PROXY_DONATE_AUTO;
+	ProxyDonate m_proxyDonate = NO_DONATIONS; //no donations
     std::vector<Pool> m_data;
 
 #   ifdef XMRIG_FEATURE_BENCHMARK

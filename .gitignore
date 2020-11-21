@@ -2,3 +2,11 @@
 /CMakeLists.txt.user
 /.idea
 /src/backend/opencl/cl/cn/cryptonight_gen.cl
+/.vs/xmrig-noodled/v15/Browse.VC.db
+/.vs/xmrig-noodled/v15/.suo
+/.vs/xmrig/v15/Browse.VC.opendb
+/.vs/xmrig/v15/Browse.VC.db
+/.vs/xmrig/v15/.suo
+/.vs/xmrig/v15/ipch/AutoPCH/fad05f4d4859d0de/NETWORK.ipch
+*.ipch
+/.vs

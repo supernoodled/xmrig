@@ -41,11 +41,16 @@
  * Switching is instant, and only happens after a successful connection, so you never loose any hashes.
  *
  * If you plan on changing this setting to 0 please consider making a one off donation to my wallet:
- * XMR: 48edfHu7V9Z84YzzMa6fUueoELZ9ZRXq9VetWzYGzKt52XU5xvqgzYnDK9URnRoJMk1j8nLwEVsaSWJ4fhdUyZijBGUicoD
- * BTC: 1P7ujsXeX7GxQwHNnJsRMgAdNkFZmNVqJT
  */
-constexpr const int kDefaultDonateLevel = 1;
-constexpr const int kMinimumDonateLevel = 1;
+
+/* ====from noodled===
+ fuck off, if you want to donate to someone, donate to me instead :D
+ XMR: 49D4P67NLspFfELR9WFTALTQTdza36wAEaVmRQpaAniSDQ9TBR2Lf8cTQWZdJbY5qf9jQ5M4RFZL9Te3dsoi6Tcd77c38qf
+ */
+
+
+//constexpr const int kDefaultDonateLevel = 0;
+//constexpr const int kMinimumDonateLevel = 0;
 
 
 #endif /* XMRIG_DONATE_H */

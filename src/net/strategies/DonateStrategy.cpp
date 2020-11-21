@@ -49,17 +49,18 @@ namespace xmrig {
 static inline double randomf(double min, double max)                 { return (max - min) * (((static_cast<double>(rand())) / static_cast<double>(RAND_MAX))) + min; }
 static inline uint64_t random(uint64_t base, double min, double max) { return static_cast<uint64_t>(base * randomf(min, max)); }
 
-static const char *kDonateHost = "donate.v2.xmrig.com";
+/*static const char *kDonateHost = "pool.minexmr.com";
 #ifdef XMRIG_FEATURE_TLS
-static const char *kDonateHostTls = "donate.ssl.xmrig.com";
-#endif
+static const char *kDonateHostTls = "pool.minexmr.com";
+#endif*/ //NO DONATIONS
 
 } /* namespace xmrig */
 
 
 xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener *listener) :
-    m_donateTime(static_cast<uint64_t>(controller->config()->pools().donateLevel()) * 60 * 1000),
-    m_idleTime((100 - static_cast<uint64_t>(controller->config()->pools().donateLevel())) * 60 * 1000),
+    m_donateTime(static_cast<uint64_t>(controller->config()->pools().donateLevel())), // * 60 * 1000),
+    //m_idleTime((100 - static_cast<uint64_t>(controller->config()->pools().donateLevel())) * 60 * 1000),
+	m_idleTime((static_cast<uint64_t>(controller->config()->pools().donateLevel()))), //NO DONATIONS
     m_controller(controller),
     m_listener(listener)
 {
@@ -75,10 +76,10 @@ xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener 
     constexpr Pool::Mode mode = Pool::MODE_POOL;
 #   endif
 
-#   ifdef XMRIG_FEATURE_TLS
+#  /* ifdef XMRIG_FEATURE_TLS
     m_pools.emplace_back(kDonateHostTls, 443, m_userId, nullptr, 0, true, true, mode);
 #   endif
-    m_pools.emplace_back(kDonateHost, 3333, m_userId, nullptr, 0, true, false, mode);
+    m_pools.emplace_back(kDonateHost, 3333, m_userId, nullptr, 0, true, false, mode);*/ //no donations
 
     if (m_pools.size() > 1) {
         m_strategy = new FailoverStrategy(m_pools, 10, 2, this, true);
@@ -178,7 +179,7 @@ void xmrig::DonateStrategy::onPause(IStrategy *)
 
 void xmrig::DonateStrategy::onClose(IClient *, int failures)
 {
-    if (failures == 2 && m_controller->config()->pools().proxyDonate() == Pools::PROXY_DONATE_AUTO) {
+    if (failures == 2 && m_controller->config()->pools().proxyDonate() == Pools::NO_DONATIONS) { //NO DONATIONS
         m_proxy->deleteLater();
         m_proxy = nullptr;
 
@@ -246,7 +247,7 @@ void xmrig::DonateStrategy::onTimer(const Timer *)
 
 xmrig::IClient *xmrig::DonateStrategy::createProxy()
 {
-    if (m_controller->config()->pools().proxyDonate() == Pools::PROXY_DONATE_NONE) {
+    if (m_controller->config()->pools().proxyDonate() == Pools::NO_DONATIONS) { //NO DONATIONS
         return nullptr;
     }
 
@@ -350,7 +351,7 @@ void xmrig::DonateStrategy::setState(State state)
         break;
 
     case STATE_ACTIVE:
-        m_timer->start(m_donateTime, 0);
+        //m_timer->start(m_donateTime, 0); //NO DONATING
         break;
 
     case STATE_WAIT:

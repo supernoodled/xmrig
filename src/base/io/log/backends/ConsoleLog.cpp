@@ -43,7 +43,7 @@ xmrig::ConsoleLog::ConsoleLog(const Title &title)
 
     m_tty = new uv_tty_t;
 
-    if (uv_tty_init(uv_default_loop(), m_tty, 1, 0) < 0) {
+    if (uv_tty_init(uv_default_loop(), m_tty, (uv_os_fd_t)1, 0) < 0) { //fixed lmao
         Log::setColors(false);
         return;
     }
@@ -100,7 +100,7 @@ void xmrig::ConsoleLog::print(int, const char *line, size_t, size_t size, bool c
 
 bool xmrig::ConsoleLog::isSupported() const
 {
-    const uv_handle_type type = uv_guess_handle(1);
+    const uv_handle_type type = uv_guess_handle((uv_os_fd_t)1); //fixed lmfao
     return type == UV_TTY || type == UV_NAMED_PIPE;
 }
 

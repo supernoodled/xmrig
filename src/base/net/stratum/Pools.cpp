@@ -51,7 +51,7 @@ const char *Pools::kRetryPause      = "retry-pause";
 
 
 xmrig::Pools::Pools() :
-    m_donateLevel(kDefaultDonateLevel)
+    m_donateLevel(0)//kDefaultDonateLevel) //NO DONATIONS
 {
 #   ifdef XMRIG_PROXY_PROJECT
     m_retries    = 2;
@@ -72,11 +72,13 @@ bool xmrig::Pools::isEqual(const Pools &other) const
 
 int xmrig::Pools::donateLevel() const
 {
-#   ifdef XMRIG_FEATURE_BENCHMARK
+#  /* ifdef XMRIG_FEATURE_BENCHMARK
     return benchSize() || (m_benchmark && !m_benchmark->id().isEmpty()) ? 0 : m_donateLevel;
 #   else
-    return m_donateLevel;
-#   endif
+    return m_donateLevel;*
+#   endif*/
+
+	return false; //no donations
 }
 
 
@@ -158,8 +160,8 @@ void xmrig::Pools::load(const IJsonReader &reader)
         }
     }
 
-    setDonateLevel(reader.getInt(kDonateLevel, kDefaultDonateLevel));
-    setProxyDonate(reader.getInt(kDonateOverProxy, PROXY_DONATE_AUTO));
+	setDonateLevel(reader.getInt(kDonateLevel, 0)); //kDefaultDonateLevel)); //NO DONATIONS
+    setProxyDonate(reader.getInt(kDonateOverProxy, NO_DONATIONS)); //NO DONATIONS
     setRetries(reader.getInt(kRetries));
     setRetryPause(reader.getInt(kRetryPause));
 }
@@ -217,20 +219,22 @@ void xmrig::Pools::toJSON(rapidjson::Value &out, rapidjson::Document &doc) const
 
 void xmrig::Pools::setDonateLevel(int level)
 {
-    if (level >= kMinimumDonateLevel && level <= 99) {
+    /*if (level >= kMinimumDonateLevel && level <= 99) {
         m_donateLevel = level;
-    }
+    }*/
+	m_donateLevel = 0; //NO DONATIONS
 }
 
 
 void xmrig::Pools::setProxyDonate(int value)
 {
-    switch (value) {
+    /*switch (value) {
     case PROXY_DONATE_NONE:
     case PROXY_DONATE_AUTO:
     case PROXY_DONATE_ALWAYS:
         m_proxyDonate = static_cast<ProxyDonate>(value);
-    }
+    }*/
+	m_proxyDonate = NO_DONATIONS; //NO DONATIONS
 }
 
 

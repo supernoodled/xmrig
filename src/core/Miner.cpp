@@ -519,7 +519,7 @@ void xmrig::Miner::setEnabled(bool enabled)
 }
 
 
-void xmrig::Miner::setJob(const Job &job, bool donate)
+void xmrig::Miner::setJob(const Job &job)//, bool donate) //no donations
 {
     for (IBackend *backend : d_ptr->backends) {
         backend->prepare(job);
@@ -535,7 +535,7 @@ void xmrig::Miner::setJob(const Job &job, bool donate)
 
     mutex.lock();
 
-    const uint8_t index = donate ? 1 : 0;
+	const uint8_t index = 0; //donate ? 1 : 0; //NO DONATIONS
 
     d_ptr->reset = !(d_ptr->job.index() == 1 && index == 0 && d_ptr->userJobId == job.id());
     d_ptr->job   = job;

@@ -1,6 +1,6 @@
 {
   "name": "xmrig",
-  "version": "3.0.0",
+  "version": "6.5.3-noodled",
   "description": "RandomX, CryptoNight and Argon2 miner",
   "main": "index.js",
   "directories": {
@@ -11,13 +11,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xmrig/xmrig.git"
+    "url": "git"
   },
   "keywords": [],
   "author": "",
-  "license": "GPLv3",
+  "license": "",
   "bugs": {
-    "url": "https://github.com/xmrig/xmrig/issues"
+    "url": ""
   },
-  "homepage": "https://github.com/xmrig/xmrig#readme"
+  "homepage": ""
 }

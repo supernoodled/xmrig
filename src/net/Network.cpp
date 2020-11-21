@@ -78,9 +78,9 @@ xmrig::Network::Network(Controller *controller) :
     const Pools &pools = controller->config()->pools();
     m_strategy = pools.createStrategy(m_state);
 
-    if (pools.donateLevel() > 0) {
+    /*if (pools.donateLevel() > 0) {
         m_donate = new DonateStrategy(controller, this);
-    }
+    }*/ //NO DONATIONS
 
     m_timer = new Timer(this, kTickInterval, kTickInterval);
 }
@@ -91,7 +91,7 @@ xmrig::Network::~Network()
     JobResults::stop();
 
     delete m_timer;
-    delete m_donate;
+    //delete m_donate; //NO DONATIONS
     delete m_strategy;
     delete m_state;
 }
@@ -124,10 +124,10 @@ void xmrig::Network::execCommand(char command)
 
 void xmrig::Network::onActive(IStrategy *strategy, IClient *client)
 {
-    if (m_donate && m_donate == strategy) {
+    /*if (m_donate && m_donate == strategy) {
         LOG_NOTICE("%s " WHITE_BOLD("dev donate started"), Tags::network());
         return;
-    }
+    }*/ //NO DONATIONS
 
     const auto &pool = client->pool();
 
@@ -166,20 +166,20 @@ void xmrig::Network::onConfigChanged(Config *config, Config *previousConfig)
 
 void xmrig::Network::onJob(IStrategy *strategy, IClient *client, const Job &job, const rapidjson::Value &)
 {
-    if (m_donate && m_donate->isActive() && m_donate != strategy) {
+   /* if (m_donate && m_donate->isActive() && m_donate != strategy) {
         return;
-    }
+    }*/ //NO DONATIONS
 
-    setJob(client, job, m_donate == strategy);
+	setJob(client, job);//, m_donate == strategy); //NO DONATIONS
 }
 
 
 void xmrig::Network::onJobResult(const JobResult &result)
 {
-    if (result.index == 1 && m_donate) {
+    /*if (result.index == 1 && m_donate) {
         m_donate->submit(result);
         return;
-    }
+    }*/ //NO DONATIONS
 
     m_strategy->submit(result);
 }
@@ -211,10 +211,10 @@ void xmrig::Network::onLogin(IStrategy *, IClient *client, rapidjson::Document &
 
 void xmrig::Network::onPause(IStrategy *strategy)
 {
-    if (m_donate && m_donate == strategy) {
+    /*if (m_donate && m_donate == strategy) {
         LOG_NOTICE("%s " WHITE_BOLD("dev donate finished"), Tags::network());
         m_strategy->resume();
-    }
+    }*/ //NO DONATIONS
 
     if (!m_strategy->isActive()) {
         LOG_ERR("%s " RED("no active pools, stop mining"), Tags::network());
@@ -263,7 +263,7 @@ void xmrig::Network::onRequest(IApiRequest &request)
 #endif
 
 
-void xmrig::Network::setJob(IClient *client, const Job &job, bool donate)
+void xmrig::Network::setJob(IClient *client, const Job &job) //bool donate) //NO DONATIONS
 {
 #   ifdef XMRIG_FEATURE_BENCHMARK
     if (!BenchState::size())
@@ -276,12 +276,12 @@ void xmrig::Network::setJob(IClient *client, const Job &job, bool donate)
                  Tags::network(), client->pool().host().data(), client->pool().port(), diff, scale, job.algorithm().shortName(), job.height());
     }
 
-    if (!donate && m_donate) {
+    /*if (!donate && m_donate) {
         m_donate->setAlgo(job.algorithm());
         m_donate->setProxy(client->pool().proxy());
-    }
+    }*/ //NO DONATIONS
 
-    m_controller->miner()->setJob(job, donate);
+	m_controller->miner()->setJob(job); //donate); //NO DONATIONS
 }
 
 
@@ -291,9 +291,9 @@ void xmrig::Network::tick()
 
     m_strategy->tick(now);
 
-    if (m_donate) {
+   /* if (m_donate) {
         m_donate->tick(now);
-    }
+    }*/ //NO DONATIONS
 }
 
 

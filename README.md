@@ -26,6 +26,3 @@ if ye wanna donate:
 * libuv x64 - v1.40.0
 (https://github.com/supernoodled/libuv/)
 
-* hwloc x64 - v2.3.0
-(https://www-lb.open-mpi.org/software/hwloc/v2.3/)
-

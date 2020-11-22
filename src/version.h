@@ -28,7 +28,7 @@
 #define APP_ID        "xmrig"
 #define APP_NAME      "XMRig"
 #define APP_DESC      "XMRig 0% miner"
-#define APP_VERSION   "6.6.0-noodled"
+#define APP_VERSION   "6.6.0-0p1.0.0"
 #define APP_DOMAIN    "noodled"
 #define APP_SITE      "no"
 #define APP_COPYRIGHT "lol no"

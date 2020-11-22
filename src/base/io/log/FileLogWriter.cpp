@@ -71,7 +71,7 @@ bool xmrig::FileLogWriter::write(const char *data, size_t size)
     auto req = new uv_fs_t;
     req->data = buf.base;
 
-    uv_fs_write(uv_default_loop(), req, (uv_os_fd_t*)m_file, &buf, 1, -1, fsWriteCallback); //lol
+    uv_fs_write(uv_default_loop(), req, m_file, &buf, 1, -1, fsWriteCallback);
 
     return true;
 }
@@ -89,7 +89,7 @@ bool xmrig::FileLogWriter::writeLine(const char *data, size_t size)
     auto req = new uv_fs_t;
     req->data = buf[0].base;
 
-    uv_fs_write(uv_default_loop(), req, (uv_os_fd_t*)m_file, buf, 2, -1, fsWriteCallback); //fixed lol
+    uv_fs_write(uv_default_loop(), req, m_file, buf, 2, -1, fsWriteCallback);
 
     return true;
 }

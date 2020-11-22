@@ -126,35 +126,52 @@ private:
         ConfigTransform transform;
         std::unique_ptr<Config> config;
 
+		printf("\n======Config *load(Process *process)======\n");
+
+		printf("configtransform:load\n");
         ConfigTransform::load(chain, process, transform);
+		printf("configtransform:load done\n");
 
+		/*printf("read chain,config\n");
         if (read(chain, config)) {
+			printf("return config.release() - found i think lol\n");
             return config.release();
-        }
-
+        }*/ //wat does this even do lol
+		
+		printf("looking for config at datalocation\n");
         chain.addFile(Process::location(Process::DataLocation, "config.json"));
         if (read(chain, config)) {
+			printf("===CONFIG FOUND===\n");
             return config.release();
         }
-        
+		
+		printf("looking for config at homelocation\n");
         chain.addFile(Process::location(Process::HomeLocation,  "." APP_ID ".json"));
         if (read(chain, config)) {
+			printf("===CONFIG FOUND===\n");
             return config.release();
         }
         
+		printf("looking for config at homelocation again\n");
         chain.addFile(Process::location(Process::HomeLocation, ".config" XMRIG_DIR_SEPARATOR APP_ID ".json"));
         if (read(chain, config)) {
+			printf("===CONFIG FOUND===\n");
             return config.release();
         }
 
+		printf("owo what happened here????");
+
 #       ifdef XMRIG_FEATURE_EMBEDDED_CONFIG
+		printf("XMRIG_FEATURE_EMBEDDED_CONFIG is defined\n");
         chain.addRaw(default_config);
 
         if (read(chain, config)) {
+			printf("addded XMRIG_FEATURE_EMBEDDED_CONFIG\n");
             return config.release();
         }
 #       endif
 
+		printf("complete failure to load config lol\n");
         return nullptr;
     }
 };
@@ -166,6 +183,7 @@ private:
 xmrig::Base::Base(Process *process)
     : d_ptr(new BasePrivate(process))
 {
+	printf("\n======Base::Base(Process *process)======\n");
 }
 
 

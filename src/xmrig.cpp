@@ -30,13 +30,22 @@
 int main(int argc, char **argv) {
     using namespace xmrig;
 
+	printf("\n======int main() HELLO WORLD!!!! :D ======\n");
+
+	printf("main: process process()\n");
     Process process(argc, argv);
+
+	printf("main: entry::get(process)\n");
     const Entry::Id entry = Entry::get(process);
+	
     if (entry) {
+		printf("main: entry = true\n");
+		printf("\nmain: ===return Entry::exec()===\n");
         return Entry::exec(process, entry);
     }
 
     App app(&process);
 
+	printf("\nmain: ===return app.exec()===\n");
     return app.exec();
 }

@@ -37,9 +37,11 @@ namespace xmrig {
 
 static inline const std::string &usage()
 {
+	printf("\n======usage======\n");
     static std::string u;
 
     if (!u.empty()) {
+		printf("usage: ===usage is empty===\n");
         return u;
     }
 
@@ -190,6 +192,8 @@ static inline const std::string &usage()
     u += "      --hash=HASH               compare benchmark result with specified hash\n";
 #   endif
 
+	printf("usage: usage = %s\n", u.c_str());
+	printf("usage: ===returning usage===\n");
     return u;
 }
 

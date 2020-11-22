@@ -163,30 +163,43 @@ xmrig::Entry::Id xmrig::Entry::get(const Process &process)
 
 int xmrig::Entry::exec(const Process &process, Id id)
 {
+	printf("\n=====entry::exec()======\n");
     switch (id) {
     case Usage:
+		printf("entry::exec: case:Usage");
         printf("%s\n", usage().c_str());
         return 0;
 
     case Version:
+		printf("entry::exec: case:Version\n");
         return showVersion();
 
 #   ifdef XMRIG_FEATURE_HWLOC
+		printf("entry::exec: XMRIG_FEATURE_HWLOC\n");
     case Topo:
+		printf("\nentry::exec: ===Topology===\n");
         return exportTopology(process);
 #   endif
 
 #   ifdef XMRIG_FEATURE_OPENCL
+		printf("entry::exec: XMRIG_FEATURE_OPENCL\n");
     case Platforms:
+		printf("entry::exec: case:Platforms\n");
+		printf("entry::exec: if(Oclib::init()\n");
         if (OclLib::init()) {
+			printf("entry::exec: OcLib::init() done\n");
+			printf("entry::exec: OcLib::print()\n");
             OclPlatform::print();
+			printf("entry::exec: OcLib::print() done\n");
         }
+		printf("entry::exec: ===returning 0===\n");
         return 0;
 #   endif
 
     default:
+		printf("entry::exec: default: break;\n");
         break;
     }
-
+	printf("entry::exec: ===returning 1===\n");
     return 1;
 }

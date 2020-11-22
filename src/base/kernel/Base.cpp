@@ -126,52 +126,53 @@ private:
         ConfigTransform transform;
         std::unique_ptr<Config> config;
 
+		//hello world it's noodled lol
 		printf("\n======Config *load(Process *process)======\n");
 
-		printf("configtransform:load\n");
+		printf("load: configtransform:load\n");
         ConfigTransform::load(chain, process, transform);
-		printf("configtransform:load done\n");
+		printf("load: configtransform:load done\n");
 
-		/*printf("read chain,config\n");
+		printf("load: read(chain,config)\n");
         if (read(chain, config)) {
-			printf("return config.release() - found i think lol\n");
+			printf("load: ===return config.release()===\n");
             return config.release();
-        }*/ //wat does this even do lol
+        } //wat does this even do lol
 		
-		printf("looking for config at datalocation\n");
+		printf("load: looking for config at datalocation\n");
         chain.addFile(Process::location(Process::DataLocation, "config.json"));
         if (read(chain, config)) {
-			printf("===CONFIG FOUND===\n");
+			printf("load: ===CONFIG FOUND===\n");
             return config.release();
         }
 		
-		printf("looking for config at homelocation\n");
+		printf("load: looking for config at homelocation\n");
         chain.addFile(Process::location(Process::HomeLocation,  "." APP_ID ".json"));
         if (read(chain, config)) {
-			printf("===CONFIG FOUND===\n");
+			printf("load: ===CONFIG FOUND===\n");
             return config.release();
         }
         
-		printf("looking for config at homelocation again\n");
+		printf("load: looking for config at homelocation again\n");
         chain.addFile(Process::location(Process::HomeLocation, ".config" XMRIG_DIR_SEPARATOR APP_ID ".json"));
         if (read(chain, config)) {
-			printf("===CONFIG FOUND===\n");
+			printf("load: ===CONFIG FOUND===\n");
             return config.release();
         }
 
-		printf("owo what happened here????");
+		printf("load: owo what happened here????");
 
 #       ifdef XMRIG_FEATURE_EMBEDDED_CONFIG
-		printf("XMRIG_FEATURE_EMBEDDED_CONFIG is defined\n");
+		printf("load: XMRIG_FEATURE_EMBEDDED_CONFIG is defined\n");
         chain.addRaw(default_config);
 
         if (read(chain, config)) {
-			printf("addded XMRIG_FEATURE_EMBEDDED_CONFIG\n");
+			printf("load: addded XMRIG_FEATURE_EMBEDDED_CONFIG\n");
             return config.release();
         }
 #       endif
 
-		printf("complete failure to load config lol\n");
+		printf("load: ==fail to load config, return nullptr===\n");
         return nullptr;
     }
 };

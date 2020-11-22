@@ -59,41 +59,54 @@ xmrig::App::~App()
 
 int xmrig::App::exec()
 {
+	printf("\n======APP::exec()======\n");
     if (!m_controller->isReady()) {
         LOG_EMERG("no valid configuration found, try https://xmrig.com/wizard");
-
+		printf("APP::exec: ===no valid config found===\n");
         return 2;
     }
 
+	printf("APP::exec: m_signals = new Signals()\n");
     m_signals = new Signals(this);
 
     int rc = 0;
+	printf("APP::exec: int rc = %i\n", rc);
     if (background(rc)) {
+		printf("APP::exec: ===background(rc), returning===\n");
         return rc;
     }
 
     rc = m_controller->init();
+	printf("APP::exec: rc = m_controller->init() rc = %i\n", rc);
     if (rc != 0) {
+		printf("==APP::exec: rc != 0, returning===\n");
         return rc;
     }
 
     if (!m_controller->isBackground()) {
         m_console = new Console(this);
+		printf("APP::exec: if(!m_controller->isBackground) m_console = new Console(this)\n");
     }
 
     Summary::print(m_controller);
+	printf("APP::exec: Summary::print(m_controller)\n");
 
     if (m_controller->config()->isDryRun()) {
         LOG_NOTICE("%s " WHITE_BOLD("OK"), Tags::config());
-
+		printf("APP::exec: ==if(m_controller->config()->isDryRun(), returning 0===\n");
         return 0;
     }
 
+	printf("APP::exec: m_controller->start()\n");
     m_controller->start();
 
+	printf("APP::exec: rc = uv_run(uv_default_loop(), UV_RUN_DEFAULT)\n");
     rc = uv_run(uv_default_loop(), UV_RUN_DEFAULT);
+	printf("APP::exec: rc = %i\n", rc);
     uv_loop_close(uv_default_loop());
+	printf("APP::exec: uv_loop_close(uv_default_loop())\n");
 
+	printf("APP::exec: ===return rc===\n");
     return rc;
 }
 

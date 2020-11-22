@@ -20,15 +20,12 @@ if ye wanna donate:
 * XMR: `49D4P67NLspFfELR9WFTALTQTdza36wAEaVmRQpaAniSDQ9TBR2Lf8cTQWZdJbY5qf9jQ5M4RFZL9Te3dsoi6Tcd77c38qf`
 
 ## Versions
-*xmrig x64 - v6.5.3 
-(as of commit 89454c6d30ad0b2d8efd0026daec07bcdfa42952)
+* openssl x64 - v3.0.0-alpha9-dev
+(https://github.com/supernoodled/openssl/)
 
-*openssl x64 - v3.0.0-alpha9-dev 
-(as of commit 5053394aa6bc989e1ce8f0e47578c691aee6aa47)
+* libuv x64 - v1.40.0
+(https://github.com/supernoodled/libuv/)
 
-*libuv x64 - v1.40.0 
-(as of commit fc2c1a2341c0bedfca3bded96ac7dce8b3575b53)
-
-*hwloc x64 - v2.3.0 
+* hwloc x64 - v2.3.0
 (https://www-lb.open-mpi.org/software/hwloc/v2.3/)
 

@@ -99,10 +99,7 @@ xmrig::Network::~Network()
 
 void xmrig::Network::connect()
 {
-	printf("\n======Network::connect()======\n");
-	printf("Network::connect m_strategy->connect()\n");
     m_strategy->connect();
-	printf("Network::connect m_strategy->connect()===done===\n");
 }
 
 

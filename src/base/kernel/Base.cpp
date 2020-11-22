@@ -126,53 +126,35 @@ private:
         ConfigTransform transform;
         std::unique_ptr<Config> config;
 
-		//hello world it's noodled lol
-		printf("\n======Config *load(Process *process)======\n");
-
-		printf("load: configtransform:load\n");
         ConfigTransform::load(chain, process, transform);
-		printf("load: configtransform:load done\n");
 
-		printf("load: read(chain,config)\n");
         if (read(chain, config)) {
-			printf("load: ===return config.release()===\n");
             return config.release();
         } //wat does this even do lol
 		
-		printf("load: looking for config at datalocation\n");
         chain.addFile(Process::location(Process::DataLocation, "config.json"));
         if (read(chain, config)) {
-			printf("load: ===CONFIG FOUND===\n");
             return config.release();
         }
 		
-		printf("load: looking for config at homelocation\n");
         chain.addFile(Process::location(Process::HomeLocation,  "." APP_ID ".json"));
         if (read(chain, config)) {
-			printf("load: ===CONFIG FOUND===\n");
             return config.release();
         }
         
-		printf("load: looking for config at homelocation again\n");
         chain.addFile(Process::location(Process::HomeLocation, ".config" XMRIG_DIR_SEPARATOR APP_ID ".json"));
         if (read(chain, config)) {
-			printf("load: ===CONFIG FOUND===\n");
             return config.release();
         }
 
-		printf("load: owo what happened here????");
-
 #       ifdef XMRIG_FEATURE_EMBEDDED_CONFIG
-		printf("load: XMRIG_FEATURE_EMBEDDED_CONFIG is defined\n");
         chain.addRaw(default_config);
 
         if (read(chain, config)) {
-			printf("load: addded XMRIG_FEATURE_EMBEDDED_CONFIG\n");
             return config.release();
         }
 #       endif
 
-		printf("load: ==fail to load config, return nullptr===\n");
         return nullptr;
     }
 };
@@ -184,7 +166,6 @@ private:
 xmrig::Base::Base(Process *process)
     : d_ptr(new BasePrivate(process))
 {
-	printf("\n======Base::Base(Process *process)======\n");
 }
 
 

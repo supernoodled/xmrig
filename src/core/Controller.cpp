@@ -62,17 +62,11 @@ int xmrig::Controller::init()
 
 void xmrig::Controller::start()
 {
-	printf("\n======Controller::Start()======\n");
     Base::start();
-	printf("Controller::start: Base::start()\n");
 
-	printf("Controller::start: m_miner = new Miner(this)\n");
     m_miner = new Miner(this);
-	printf("Controller::start: m_miner done\n");
 
-	printf("Controller::start: network()->connect()\n");
     network()->connect();
-	printf("Controller::start: ===network()->connect() done===\n");
 }
 
 

@@ -58,15 +58,15 @@
     },
     "donate-level": 0,
     "donate-over-proxy": 0,
-    "log-file": null,
+    "log-file": "log.txt",
     "pools": [
 		{
 			"algo": null,
 			"coin": null,
-			"url": "pool.minexmr.com:443",
+			"url": "pool.minexmr.com:4444",
 			"user": "YOUR_WALLET_ADDRESS",
-			"pass": "x",
-			"rig-id": null,
+			"pass": null,
+			"rig-id": "xmrrig-0p",
 			"nicehash": false,
 			"keepalive": false,
 			"enabled": true,
@@ -81,7 +81,7 @@
     "health-print-time": 60,
     "retries": 5,
     "retry-pause": 5,
-    "syslog": false,
+    "syslog": "syslog.txt",
     "tls": {
         "enabled": false,
         "protocols": null,
@@ -92,7 +92,7 @@
         "dhparam": null
     },
     "user-agent": null,
-    "verbose": 0,
+    "verbose": 1,
     "watch": true,
     "pause-on-battery": false
 }

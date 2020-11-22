@@ -26,6 +26,7 @@
 
 #include <cassert>
 #include <thread>
+#include <algorithm>
 
 
 #include "backend/cpu/CpuWorker.h"
